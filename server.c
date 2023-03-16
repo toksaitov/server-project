@@ -14,7 +14,7 @@
 #define TO_STRING(x) STRINGIFY(x)
 
 #define SERVER_PORT 8080 // TODO: change the server port to your university ID
-#define SERVER_DIR "public"
+#define SERVER_DIR "/srv/walter"
 
 #define MAX_QUEUED_CONNECTIONS 64
 #define MAX_REQUEST_SIZE 2048
