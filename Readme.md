@@ -13,7 +13,7 @@ The aim of this project is to optimize a primitive serial blocking HTTP Web serv
 4. Compile `server.c` with `gcc -O3 -o server server.c`.
 5. Create a copy of the `server.c` file under the name `server_optimized.c`.
 6. Open the `server_optimized.c` file and find the main `// TODO` comment. Follow it. Optimize your code by using OS threads.
-7. Change the code to improve `Requests per second` measurement for the Apache HTTP server benchmarking tool `ab -n 1000000 -c 64 http://auca.space:<YOUR PORT>` against `server_optimized.c` in comparison to the same command performed against the `server.c`. To compile the optimized code, use the `gcc -O3 -o server_optimized server_optimized.c` command. You MUST make the optimized program handle at least twice the number of requests per second in `ab`.
+7. Change the code to improve `Requests per second` measurement for the Apache HTTP server benchmarking tool `ab -n 1000000 -c 64 http://auca.space:<YOUR PORT>/` against `server_optimized.c` in comparison to the same command performed against the `server.c`. To compile the optimized code, use the `gcc -O3 -o server_optimized server_optimized.c` command. You MUST make the optimized program handle at least twice the number of requests per second in `ab`.
 8. Ensure that your server implementation not just performs well, but also correctly sends a sample web site to most popular browsers (Chromium family, Firefox, and Safari).
 
 ## Rules
