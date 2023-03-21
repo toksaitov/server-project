@@ -1,13 +1,14 @@
-// TODO: use OS threads to make the code below much more efficient
-
 #include <fcntl.h>
 #include <limits.h>
 #include <netinet/in.h>
+#include <signal.h>
 #include <stdbool.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sys/socket.h>
+#include <sys/types.h>
 #include <unistd.h>
 
 #define STRINGIFY(x) #x
@@ -16,7 +17,7 @@
 #define SERVER_PORT 8080 // TODO: change the server port to your university ID
 #define SERVER_DIR "/srv/walter"
 
-#define MAX_QUEUED_CONNECTIONS 64
+#define MAX_QUEUED_CONNECTIONS SOMAXCONN
 #define MAX_REQUEST_SIZE 2048
 
 int main(int argc, char *argv[])
@@ -36,6 +37,8 @@ int main(int argc, char *argv[])
     }
     server_dir_path[PATH_MAX] = '\0';
     size_t server_dir_path_len = strlen(server_dir_path);
+
+    signal(SIGPIPE, SIG_IGN);
 
     if ((server_socket = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP)) == -1) {
         perror("Failed to create a server socket");
@@ -95,11 +98,15 @@ int main(int argc, char *argv[])
 
         char request_data[MAX_REQUEST_SIZE + 1];
         memset(request_data, 0, MAX_REQUEST_SIZE);
-        if (recv(request_socket, &request_data, MAX_REQUEST_SIZE, 0) == -1) {
+
+        ssize_t bytes_received;
+        if ((bytes_received = recv(request_socket, &request_data, MAX_REQUEST_SIZE, 0)) == -1) {
             perror("Failed to receive the request data");
 
             program_status = EXIT_FAILURE;
             goto end;
+        } else if (bytes_received == 0) {
+            goto finish_request;
         }
         request_data[MAX_REQUEST_SIZE] = '\0';
 
@@ -111,7 +118,11 @@ int main(int argc, char *argv[])
         }
 
         char file_path[PATH_MAX + 1];
-        snprintf(file_path, PATH_MAX, "%s/%s", server_dir_path, file_name);
+        if (snprintf(file_path, PATH_MAX, "%s/%s", server_dir_path, file_name) >= PATH_MAX) {
+            perror("The requested file path is too long");
+
+            goto finish_request;
+        }
         file_path[PATH_MAX] = '\0';
 
         char resolved_path[PATH_MAX + 1];
@@ -166,6 +177,7 @@ int main(int argc, char *argv[])
             }
         }
 
+finish_request:
         shutdown(request_socket, SHUT_WR);
         char leftovers[1024];
         while (recv(request_socket, leftovers, sizeof(leftovers), 0) > 0) { }
