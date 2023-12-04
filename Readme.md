@@ -18,7 +18,7 @@ The aim of this project is to optimize a primitive serial blocking HTTP Web serv
 
 ## Rules
 
-* You MUST directly or indirectly utilize abstractions of the OS such as threads, locks (such as mutexes), and conditional variables to get all points.
+* You MUST directly or indirectly utilize abstractions of the OS such as processes to get all points.
 * Do NOT profile code anywhere but on our server at `auca.space`. You may use `peer.auca.space` located at a nearby data center to look at the influence of network latency on the performance, but the final measurements must be performed on the master `auca.space` server.
 * Do NOT procrastinate and leave the work to the very last moment. If the server is overloaded close to the deadline, you will not be able to get good measurements. We will not give any extensions for that reason.
 * Do NOT change any optimization flags. The code must be compiled with GCC with just the `-O3` optimization flag.
@@ -47,11 +47,6 @@ Check Canvas for information about the deadlines.
 * [Beej's Guide to C Programming](https://beej.us/guide/bgc)
 * [GDB Quick Reference](http://users.ece.utexas.edu/~adnan/gdb-refcard.pdf)
 
-### pthreads
-
-* [POSIX Threads Programming Guide](https://hpc-tutorials.llnl.gov/posix)
-
 ## Books
 
 * C Programming: A Modern Approach, 2nd Edition by K. N. King
-* Programming with POSIX Threads by D. Butenhof
