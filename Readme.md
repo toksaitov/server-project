@@ -18,7 +18,7 @@ The aim of this project is to optimize a primitive serial blocking HTTP Web serv
 
 ## Rules
 
-* You MUST directly or indirectly utilize abstractions of the OS such as processes to get all points.
+* You MUST directly or indirectly utilize abstractions of the OS such as threads to get all points.
 * Do NOT profile code anywhere but on our server at `auca.space`. You may use `peer.auca.space` located at a nearby data center to look at the influence of network latency on the performance, but the final measurements must be performed on the master `auca.space` server.
 * Do NOT procrastinate and leave the work to the very last moment. If the server is overloaded close to the deadline, you will not be able to get good measurements. We will not give any extensions for that reason.
 * Do NOT change any optimization flags. The code must be compiled with GCC with just the `-O3` optimization flag.
@@ -27,13 +27,11 @@ The aim of this project is to optimize a primitive serial blocking HTTP Web serv
 
 ## What to Submit
 
-1. In your private course repository that was given to you by the instructor during the lecture, create the path `project-3/`.
-2. Put the `server_optimized.c` file into that directory.
-3. Commit and push your repository through Git. Submit the last commit URL to Canvas before the deadline.
+Commit and push your changes to the private repository provided by your instructor. Submit the URL of your last commit to Moodle before the deadline.
 
 ## Deadline
 
-Check Canvas for information about the deadlines.
+Check Moodle for information about the deadlines.
 
 ## Documentation
 
