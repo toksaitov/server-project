@@ -25,7 +25,7 @@
 #define STRINGIFY(x) #x
 #define TO_STRING(x) STRINGIFY(x)
 
-#define SERVER_PORT 8080
+#define SERVER_PORT 8080 // TODO: change the server port to your university ID
 #define SERVER_DIR "srv/front"
 
 #define MAX_QUEUED_CONNECTIONS SOMAXCONN

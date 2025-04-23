@@ -5,14 +5,25 @@ The aim of this project is to optimize a primitive, serial, blocking HTTP web se
 
 ## Tasks
 
-1. Upload/clone the repo with sources to our course server `auca.space`. You have to measure performance on `auca.space` and not on your computer.
-2. `cd` into the repo.
-3. Open the `server.c` file and change the `PORT` to the one specified by your instructor.
-4. Compile `server.c` with `gcc -O3 -o server server.c`.
-5. Submit a picture for processing with `curl -v -X POST --data-binary @./srv/front/test.png http://127.0.0.1:8080/images`. Get the processed image with `curl -o output.png -v http://127.0.0.1:8080/images/<UUID>/`. The UUID will be given in the first request.
-6. Create a copy of the `server.c` file under the name `server_optimized.c`.
-7. Optimize your code by using OS threads. To earn full credit, you must implement and use thread pooling. You can also try using a GNU/Linux non-blocking API, apply the median filter with SIMD, and reorganize your code to achieve better performance. Use all the knowledge gained from previous labs and projects.
-8. Ensure that your server implementation not only performs well but also correctly processes requests and files across the Chromium family, Firefox, and Safari.
+1. Upload or clone the repository containing the sources to our course server at `auca.space`. Important: you must measure performance on `auca.space`, not on your local machine.
+
+2. `cd` into the repository directory.
+
+3. Open the `server.c` file and change the `SERVER_PORT` to your university ID.
+
+4. Compile `server.c` using `gcc -O3 -o server server.c`.
+
+5. Submit an image for processing using `curl -v -X 'POST' --data-binary '@srv/front/test.png' 'http://127.0.0.1:<SERVER_PORT>/images'`. Replace `<SERVER_PORT>` with the port number set in step 3. Note the returned job ID, which will be in the form of a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
+
+   Retrieve the processed image with `curl -o 'srv/front/test_processed.png' -v 'http://127.0.0.1:<SERVER_PORT>/images/<UUID>/'`. Again, replace `<SERVER_PORT>` and `<UUID>` accordingly.
+
+   Finally, check whether the server can serve the processed static file by opening `http://127.0.0.1:<SERVER_PORT>/test_processed.png` in your browser.
+
+6. Create a copy of `server.c` and name it `server_optimized.c`.
+
+7. Optimize your code using OS threads. You may also explore using the GNU/Linux non-blocking I/O API (which may use threads internally), or specialized networking functions like [`sendfile`](https://man7.org/linux/man-pages/man2/sendfile.2.html) for efficient file transfers. Improve performance by making better use of CPU pipelines, caches, and memory, or by applying the median filter with SIMD for faster image processing. Use all the knowledge acquired in previous projects to optimize the program. Ensure the code follows basic security best practices.
+
+8. Make sure your server not only performs efficiently but also correctly handles HTTP requests and responses in Chromium-based browsers, Firefox, and Safari. Additionally, verify that it works with `curl`, a widely used HTTP command-line tool.
 
 ## Rules
 
