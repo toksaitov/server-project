@@ -11,7 +11,7 @@ The aim of this project is to optimize a primitive, serial, blocking HTTP web se
 
 3. Open the `server.c` file and change the `SERVER_PORT` to your university ID.
 
-4. Compile `server.c` using `gcc -O3 -o server server.c`.
+4. Compile `server.c` using `gcc -O3 -o server server.c -luuid -lm`. You need the `uuid` library installed. On Debian-based distributions, you can install it by running `sudo apt install uuid-dev`. Our server environment already has the library installed. Some Unix systems, such as recent versions of macOS, include the library bundled with the OS.
 
 5. Submit an image for processing using `curl -v -X 'POST' --data-binary '@srv/front/test.png' 'http://127.0.0.1:<SERVER_PORT>/images'`. Replace `<SERVER_PORT>` with the port number set in step 3. Note the returned job ID, which will be in the form of a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
 
